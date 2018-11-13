@@ -5,9 +5,11 @@ import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Shop {
     public Map<Product, Integer> productStock;
+    public Map<Product, Integer> productBasket = new LinkedHashMap<>();
     // create constructor
     public Shop(String filePath) {
         this.initialize(filePath); // call the method initialize
@@ -29,13 +31,53 @@ public class Shop {
         return myMenu;
     }
 
+    // create a method fro buying products
+    public Product buyProduct(){
+
+        System.out.println("Choose the product you want:");
+        Scanner scanner = new Scanner(System.in);
+        Double option = scanner.nextDouble();
+
+        boolean ok = false;
+        if(option == 0){
+            System.exit(0);
+        }
+        for (Product p : productStock.keySet()) { // mergem prin produse
+            if(p.getIdProduct() == option){ // daca optiunea corespunde cu codul produsului
+                Integer quantity = productStock.get(p); // din stoc luam produsul
+                if(quantity > 0){ // daca stocul nu este epuizat
+                    ok = true;
+                    return p;
+                    //productStock.put(p,quantity-1); // suprascriere
+                    //   System.out.println("Produs cumparat cu succes.");
+                } else {
+                    System.out.println("Nu sunt produse suficiente");
+                    break;
+                }
+            }
+        }
+
+        if(ok == false){
+            System.out.println("Optiunea introdusa nu este valida");
+            return this.buyProduct(); // recursivitate - te reapelezi pe tine
+        }
+        return null;
+    }
+
+    // scadem produsul din stoc
+    public void addToBasket(Product product, Map<Product, Integer> productStock, Map<Product, Integer> productBasket){
+        productStock.put(product, productStock.get(product) - 1);
+        productBasket.put(product, productBasket.get(product) + 1);
+        System.out.println("Your basket contains " + productBasket);
+    }
+
+
+
     public void start(){
         while(true) {
             this.displayMenu(productStock); // afisam meniu
-//            Product product = this.buyProduct(); // selectam produs
-//            this.displayCoinsStock(coinStock); // afisam monezi
-//            Integer sum = this.insertCoins(product.getPrice(), coinStock); // primim o suma pe care am introdus-o
-//            this.deliverProduct(product, productStock); // livram produsul
+            Product product = this.buyProduct(); // selectam produs
+            this.addToBasket(product, productStock, productBasket); // livram produsul
 //            this.payRest(sum - product.getPrice()); // dam rest scazand din suma introdusa pretul produsului
             break;
         }
