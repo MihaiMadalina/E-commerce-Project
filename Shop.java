@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Shop {
+    Client client = new Client();
     public Map<Product, Integer> productStock;
     public Map<Product, Integer> productBasket;
 
@@ -21,9 +22,7 @@ public class Shop {
 
     public String displayMenu(Map<Product, Integer> productStock) {
         String myMenu = "";
-        myMenu = myMenu.concat("Bine ai venit. Alege produsul dorit");
-        myMenu = myMenu.concat("\n"); // this is a new line
-        myMenu = myMenu.concat("0 - IESIRE. x - Finalizeaza comanda");
+        myMenu = myMenu.concat("Bine ai venit. Alege produsul dorit.\n0 - IESIRE sau 99 - Finalizeaza comanda");
         myMenu = myMenu.concat("\n"); // this is a new line
         myMenu = myMenu.concat("Cod\tCategorie\tProdus\t Pret");
         myMenu = myMenu.concat("\n"); // this is a new line
@@ -38,14 +37,14 @@ public class Shop {
     // create a method fro buying products
     public Product buyProduct() {
 
-        System.out.println("Alege produsul dorit");
+        System.out.println("Alege produsul dorit\n0 - IESIRE sau 99 - Finalizeaza comanda");
         Scanner scanner = new Scanner(System.in);
         Double option = scanner.nextDouble();
 
         boolean ok = false;
         if (option == 0) {
             System.exit(0);
-        }
+        } else if (option ==99){this.userData();}
         for (Product p : productStock.keySet()) { // mergem prin produse
             if (p.getIdProduct() == option) { // daca optiunea corespunde cu codul produsului
                 Integer quantity = productStock.get(p); // din stoc luam produsul
@@ -81,12 +80,34 @@ public class Shop {
         System.out.println("Subtotal "+total + "$");
     }
 
+    public void userData(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ai ales sa finalizezi comanda.\nCompleteaza datele personale");
+        System.out.println("Prenume");
+        client.setFirstName(scanner.nextLine());
+        System.out.println("Nume");
+        client.setLastName(scanner.nextLine());
+        System.out.println("Adresa");
+        client.setAddress(scanner.nextLine());
+        System.out.println("Email");
+        client.setAddress(scanner.nextLine());
+        System.out.println("Telefon");
+        client.setPhone(scanner.nextInt());
+        System.out.println("Datele tale sunt " + client.getFirstName() + " " + client.getLastName() + " " +
+                client.getAddress() + " " + client.getEmail() + " " + client.getPhone());
+    }
+
+    public void order(){
+        System.out.println("Alege metoda de plata");
+    }
+
 
         public void start () {
             while (true) {
                 this.displayMenu(productStock); // afisam meniu
                 Product product = this.buyProduct(); // selectam produs
-                this.addToBasket(product, productStock, productBasket); // livram produsul
+                this.addToBasket(product, productStock, productBasket);// livram produsul
+
             }
 
         }
