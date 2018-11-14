@@ -3,24 +3,19 @@ import java.util.Map;
 
 public class Product {
 
-    private int idCategory;
-    private int idProduct;
+    private double idProduct;
     private String categoryName;
     private String productName;
     private double priceProduct;
-    private Map<Product, Integer> productStock;
-    private ArrayList<Product> productsList;
-    private ArrayList<Product> categoriesList;
 
-    public int getIdCategory() {
-        return idCategory;
+    public Product(double idProduct, String categoryName, String productName, double priceProduct ){
+        this.idProduct = idProduct;
+        this.categoryName = categoryName;
+        this.productName = productName;
+        this.priceProduct = priceProduct;
     }
 
-    public void setIdCategory(int idCategory) {
-        this.idCategory = idCategory;
-    }
-
-    public int getIdProduct() {
+    public double getIdProduct() {
         return idProduct;
     }
 
@@ -51,5 +46,4 @@ public class Product {
     public void setPriceProduct(double priceProduct) {
         this.priceProduct = priceProduct;
     }
-
 }
