@@ -5,15 +5,9 @@ import java.util.Scanner;
 
 public class ProductService {
 
-    public void start () {
-        while (true) {
-            ProductConsoleWriter.displayProducts(ProductFileStorage.productStock); // afisam meniu
-            Product product = buyProduct(); // selectam produs
-            addToBasket(product, ProductFileStorage.productStock, ProductFileStorage.productBasket);// livram produsul
-        }
-    }
 
-    public Product buyProduct() {
+
+    public static Product buyProduct() {
 
         System.out.println("Alege produsul dorit\n0 - IESIRE sau 99 - Finalizeaza comanda");
         Scanner scanner = new Scanner(System.in);
@@ -43,7 +37,7 @@ public class ProductService {
         return null;
     }
 
-    public void addToBasket(Product product, Map<Product, Integer> productStock, Map<Product, Integer> productBasket) {
+    public static void addToBasket(Product product, Map<Product, Integer> productStock, Map<Product, Integer> productBasket) {
         double total = 0.0;
         productStock.put(product, productStock.get(product) - 1);
         productBasket.put(product, productBasket.get(product)+1);
