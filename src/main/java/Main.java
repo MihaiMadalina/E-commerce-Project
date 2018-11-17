@@ -1,6 +1,9 @@
+import product.ProductFileStorage;
+
+
 public class Main {
     public static void main(String[] args) {
-        Shop shop = new Shop("E:/shop.txt");
+        ProductFileStorage shop = new ProductFileStorage("C:/SDA/shop.txt");
         shop.start();
     }
 }

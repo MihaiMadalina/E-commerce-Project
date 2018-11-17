@@ -13,6 +13,14 @@ public class ProductFileStorage {
     public static Map<Product, Integer> productStock;
     public static Map<Product, Integer> productBasket;
 
+    public void start () {
+        while (true) {
+            ProductConsoleWriter.displayProducts(ProductFileStorage.productStock); // afisam meniu
+            Product product = ProductService.buyProduct(); // selectam produs
+            ProductService.addToBasket(product, ProductFileStorage.productStock, ProductFileStorage.productBasket);// livram produsul
+        }
+    }
+
     public ProductFileStorage(String filePath) {
         readProductsFromFile(filePath); // call the method initialize
     }
