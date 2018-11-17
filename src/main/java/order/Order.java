@@ -1,3 +1,5 @@
+package order;
+
 import java.util.Map;
 
 public class Order {
@@ -6,6 +8,6 @@ public class Order {
     private Payment payment;
     private Delivery delivery;
     private int totalValue;
-    private Map<Product, Integer> productsList;
+//    private Map<Product, Integer> productsList;
     
 }
