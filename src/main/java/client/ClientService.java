@@ -1,9 +1,10 @@
 package client;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Scanner;
+
+import static client.ClientConsoleReader.insertClientId;
+
 
 public class ClientService {
     Client client = new Client();
@@ -11,11 +12,26 @@ public class ClientService {
 
 
     public void addClient() {
-        clientList.add(client);
+        clientList.add(ClientConsoleReader.userData());
     }
 
     public void deleteClient() {
+        for (Client client: clientList){
+            if(client.getIdClient()==insertClientId()){
         clientList.remove(client);
+        }
+    }
+    }
+
+    public void editClient(){
+        for (Client client: clientList){
+            if(client.getIdClient()==insertClientId()){
+                ClientConsoleReader.editUserDate();
+            }
+            else {
+                System.out.println("Client not found");
+            }
+        }
     }
 
     public String displayClientList(List<Client>clientList) {
