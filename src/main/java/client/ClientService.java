@@ -13,6 +13,7 @@ public class ClientService {
 
     public void addClient() {
         clientList.add(ClientConsoleReader.userData());
+        ClientConsoleWriter.displayClientData();
     }
 
     public void deleteClient() {
