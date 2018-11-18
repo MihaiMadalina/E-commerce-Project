@@ -3,7 +3,9 @@ import product.ProductFileStorage;
 
 public class Main {
     public static void main(String[] args) {
-        ProductFileStorage shop = new ProductFileStorage("C:/SDA/shop.txt");
-        shop.start();
+        ConsoleMenu consoleMenu = new ConsoleMenu();
+        consoleMenu.displayConsoleMenu();
+//        ProductFileStorage shop = new ProductFileStorage("E:/shop.txt");
+//        shop.start();
     }
 }
