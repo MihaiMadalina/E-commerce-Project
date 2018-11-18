@@ -1,10 +1,49 @@
 package product;
 
+import client.ClientConsoleReader;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class ProductService {
 
+    Product product = new Product();
+    private static List<Product> productList = new LinkedList<Product>(  );
+
+    public static void addProduct(Product product){
+        productList.add( product );
+    }
+
+    public static void removeProduct(Product product){
+        productList.remove( product );
+    }
+
+    public static void updateProduct(Map<Product, Integer> productStock){
+        // type idProduct to modify
+        Scanner scanner = new Scanner( System.in );
+        System.out.print("Type product id: ");
+        double findIdProduct = scanner.nextDouble();
+
+        for (Product product : productStock.keySet()){
+            if (product.getIdProduct() == findIdProduct){
+                ProductConsoleWriter.displayProduct(productStock, findIdProduct);
+                // type new values for Price and Stoc Product
+                System.out.print("Type new Price for Product:");
+                double newProductPrice = scanner.nextDouble();
+                System.out.print("Type new Stock for Product:");
+                int newProductStock = scanner.nextInt();
+                product.setPriceProduct(newProductPrice);
+                productStock.put( product, newProductStock );
+                ProductConsoleWriter.displayProduct(productStock, findIdProduct);
+            }
+        }
+    }
+
+    public static void deleteAllClientList() {
+        productList.removeAll(productList);
+    }
 
 
     public static Product buyProduct() {
@@ -16,7 +55,9 @@ public class ProductService {
         boolean ok = false;
         if (option == 0) {
             System.exit(0);
-        } else if (option ==99){userData();}
+        } else if (option ==99) {
+            ClientConsoleReader.userData();
+        }
         for (Product p : ProductFileStorage.productStock.keySet()) { // mergem prin produse
             if (p.getIdProduct() == option) { // daca optiunea corespunde cu codul produsului
                 Integer quantity = ProductFileStorage.productStock.get(p); // din stoc luam produsul
